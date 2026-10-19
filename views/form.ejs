@@ -3,20 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <title>Message Board</title>
 </head>
 <body>
-    <h1>Submit a new message</h1>
 
-    <form method="POST" action="/new">
+    <nav>
+        <div>
+            <h1>Message Board</h1>
+            <p><a href="/">All Messages</a></p>
+        </div>
+        
+    </nav>
+    
+    <div class="container">
 
-        <label for="text">Text: </label>
-        <input type="text" name="text" id="text">
+        <form method="POST" action="/new">
 
-        <label for="user">User: </label>
-        <input type="text" name="user" id="user">
+            <h2>New Message</h2>
 
-        <button type="submit">Submit</button>
-    </form>
+            <p class="form-group">
+                <label for="user">User: </label>
+                <input type="text" name="user" id="user" placeholder="Slyfox2323" required>
+            </p>
+
+            <p class="form-group">
+                <label for="text">Text: </label>
+                <textarea type="text" name="text" id="text" required ></textarea>
+            </p>
+           
+           
+           
+
+            <button id="form-submit" type="submit">Submit</button>
+        </form>
+
+    </div>
+
+
 </body>
 </html>

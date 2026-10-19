@@ -1,22 +1,26 @@
-const messages = [
-    {
-        text: "Hi there",
-        user: "Septermus",
-        added: new Date()
-    },
-    {
-        text: "How is everyone doing?",
-        user: "Brandon",
-        added: new Date()
-    },
-]
+const db = require('../db/queries')
+
+// const messages = [
+//     {
+//         text: "Hi there",
+//         user: "Septermus",
+//         added: new Date()
+//     },
+//     {
+//         text: "How is everyone doing?",
+//         user: "Brandon",
+//         added: new Date()
+//     },
+// ]
 
 
 // --------------- GET ------------------------
 
 // Gets all messaages from database
 
-function getAllMessages(req, res) {
+async function getMessages(req, res) {
+
+    const messages = await db.getAllMessages();
     
     res.status(200).render("index", {messages: messages})
 }
@@ -35,17 +39,19 @@ function getNewMessageForm(req, res) {
 // POST - Adds a new message to the database 
 
 
-function addMessage(req, res) {
+async function addMessage(req, res) {
 
     const {text, user} = req.body;
+    const date = new Date();
 
-    const newMessage = {
-        text: text,
-        user: user,
-        added: new Date(),
-    }
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const day = String(date.getDate()).padStart(2, '0');
 
-    messages.push(newMessage);
+    const formattedDate = `${year}-${month}-${day}`;
+    
+
+    await db.insertMessage(user, text, formattedDate)
 
     res.status(200).redirect("/")
 
@@ -55,4 +61,4 @@ function addMessage(req, res) {
 
 
 
-module.exports = {getAllMessages, getNewMessageForm, addMessage};
+module.exports = {getNewMessageForm, addMessage, getMessages};
